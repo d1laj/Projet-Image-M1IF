@@ -10,6 +10,8 @@
 #include <DGtal/io/boards/Board2D.h>
 #include <DGtal/helpers/StdDefs.h>
 #include <DGtal/io/readers/PGMReader.h>
+#include <armadillo>
+
 /*
 #include "DGtal/images/imagesSetsUtils/SetFromImage.h"
 #include "DGtal/images/ImageContainerBySTLVector.h"
@@ -23,6 +25,10 @@ using namespace std;
 /* Look at the classes.csv file and store the classes with an index for each of them*/
 void get_classes(char* filename, map<string, int> & classes);
 
-/* Train set */
+typedef arma::mat Matrix;
+
+/* Create a feature matrix corrresponding to the files.*/
+Matrix create_features(string directory, arma::vec & vect); // Train set
+Matrix create_features(string directory); // Test Set
 
 #endif
