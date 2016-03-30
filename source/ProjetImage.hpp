@@ -53,4 +53,9 @@ Matrix create_features(string directory, Classes & classes); // Test Set
 
 */
 
+/* Image related functions */
+int area(Image & img);
+int perimeter(Image & img);
+
+
 #endif

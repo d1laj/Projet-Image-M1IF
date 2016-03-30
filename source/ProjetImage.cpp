@@ -106,6 +106,7 @@ Matrix create_features(string directory, arma::vec & vect, Classes & classes){
     // Then we get the image
     Image image = PGMReader<Image>::importPGM(filepath);
     // We extract the features
+    cerr << filepath << " has area "; // TODO
     Feature row= feature_extract(image);
     // we add the features to the matrix
     matrix.insert_rows(matrix.n_rows, row);
@@ -122,6 +123,7 @@ Matrix create_features(string directory, Classes & classes){
 }
 
 Feature feature_extract(Image image){
+  /* cerr << area(image) << endl; */
   Feature feature = arma::rowvec(1);
   return feature;
 }
