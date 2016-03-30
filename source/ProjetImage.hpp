@@ -20,22 +20,28 @@
 #include <DGtal/io/boards/Board2D.h>
 #include <DGtal/helpers/StdDefs.h>
 #include <DGtal/io/readers/PGMReader.h>
-#include <DGtal/images/imagesSetsUtils/SetFromImage.h>
-#include <DGtal/images/ImageContainerBySTLVector.h>
+#include "DGtal/images/imagesSetsUtils/SetFromImage.h"
+#include "DGtal/images/ImageContainerBySTLVector.h"
 /* Librairies linked to data learning */
 #include <armadillo>
 
 using namespace std;
+using namespace DGtal;
+using namespace DGtal::Z2i;
 
 /* Look at the classes.csv file and store the classes with an index for each of them*/
 void get_classes(char* filename, map<string, int> & classes);
 
+typedef ImageContainerBySTLVector< Domain, unsigned int> Image;
 typedef arma::mat Matrix;
-typedef arma::vec Feature;
+typedef arma::rowvec Feature;
+typedef map<string ,int> Classes;
+
+Feature feature_extract(Image img);
 
 /* Create a feature matrix corrresponding to the files.*/
-Matrix create_features(string directory, arma::vec & vect); // Train set
-Matrix create_features(string directory); // Test Set
+Matrix create_features(string directory, arma::vec & vect, Classes & classes); // Train set
+Matrix create_features(string directory, Classes & classes); // Test Set
 
 /* Features
   _ ration aire/perimetre
