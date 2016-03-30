@@ -31,9 +31,20 @@ using namespace std;
 void get_classes(char* filename, map<string, int> & classes);
 
 typedef arma::mat Matrix;
+typedef arma::vec Feature;
 
 /* Create a feature matrix corrresponding to the files.*/
 Matrix create_features(string directory, arma::vec & vect); // Train set
 Matrix create_features(string directory); // Test Set
+
+/* Features
+  _ ration aire/perimetre
+  _ nombre composante connexes
+  _ nombre de "grosses" composantes connexes
+  _ (trouver deux vecteurs de directions principales)
+  _ symétrie ?
+
+
+*/
 
 #endif
