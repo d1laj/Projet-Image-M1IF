@@ -11,4 +11,18 @@ int area(Image& img){
   return count;
 }
 
-int perimeter(Image& img);
+int perimeter(Image& img){
+	
+	int count = 0;
+	for (auto const &it : img.domain()){
+		if (img(it)>0){
+		  Point test1 =  Point(it[0]-1, it[1]);
+		  Point test2 =  Point(it[0]+1, it[1]);
+		  Point test3 =  Point(it[0], it[1]-1);
+		  Point test4 =  Point(it[0], it[1]+1);
+		  if((img.domain().isInside(test1)&&img(test1)>0)||(img.domain().isInside(test2)&&img(test2)>0)||(img.domain().isInside(test3)&&img(test3)>0)||(img.domain().isInside(test4)&&img(test4)>0)){
+			  count++;
+			}
+		  }
+	  }
+  };
