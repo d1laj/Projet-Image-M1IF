@@ -29,7 +29,8 @@ int perimeter(Image& img){
 }
 
 
-int compo_connexes(Image& img){
+int compo_connexes(Image & img){
+
   int count = 0;
   for (auto const &it : img.domain()){
     if (img(it) > 0){
@@ -38,16 +39,39 @@ int compo_connexes(Image& img){
     }
   }
 
-  for (auto const &it : img.domain()){
-    if (img(it) > 0){
-      for (int i= -1; i <= 1; i++){
-        for (int j= -1; j <= 1; j++){
-          if (img.domain().isInside(it)){
-
+  bool cont = true;
+  while (cont){
+    cont = false;
+    for (auto const &it : img.domain()){
+      if (img(it) > 0){
+        int min = img(it);
+        for (int i= -1; i <= 1; i++){
+          for (int j= -1; j <= 1; j++){
+            if (i != 0 && j != 0) continue;
+            Point p = Point(it[0] + i, it[1] + j);
+            if (img.domain().isInside(p) && img(p) > 0){
+              if (img(p) < min){
+                min = img(p);
+                cont = true;
+              }
+            }
           }
         }
+        img.setValue(it, min);
       }
     }
   }
+
+
+  set<int> compo;
+  for (auto const &it : img.domain()){
+    if (img(it) > 0){
+      compo.insert(img(it));
+      img.setValue(it, 1);
+    }
+  }
+
+  return compo.size();
+
   return 0;
 }
