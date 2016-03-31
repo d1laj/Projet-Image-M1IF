@@ -123,7 +123,7 @@ Matrix create_features(string directory, Classes & classes){
 }
 
 Feature feature_extract(Image image){
-  /* cerr << area(image) << endl; */
+  cerr << area(image) << endl;
   Feature feature = arma::rowvec(1);
   return feature;
 }
