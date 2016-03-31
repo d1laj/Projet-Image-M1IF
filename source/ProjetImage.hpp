@@ -23,11 +23,15 @@
 #include "DGtal/images/imagesSetsUtils/SetFromImage.h"
 #include "DGtal/images/ImageContainerBySTLVector.h"
 /* Librairies linked to data learning */
-#include <armadillo>
+//#include <armadillo>
+/*Mlpack */
+#include <mlpack/core.hpp>
+#include <mlpack/methods/linear_regression/linear_regression.hpp>
 
 using namespace std;
 using namespace DGtal;
 using namespace DGtal::Z2i;
+using namespace mlpack::regression;
 
 /* Look at the classes.csv file and store the classes with an index for each of them*/
 void get_classes(char* filename, map<string, int> & classes);

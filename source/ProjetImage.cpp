@@ -20,12 +20,15 @@ int main(int argc, char** argv){
   Matrix trainMat;
   arma::vec trainAnswers;
   trainMat = create_features(argv[1], trainAnswers, classes);
-
+  
   //Matrix testMat = create_features(argv[2], classes);
 
   /* Learning */
+  LinearRegression lr(trainMat,trainAnswers);
+  arma::vec parameters = lr.Parameters();
 
-
+  arma::vec predictions;
+  lr.Predict(trainMat,predictions);
 }
 
 void get_classes(char* filename, map<string, int> & classes){
@@ -124,5 +127,6 @@ Matrix create_features(string directory, Classes & classes){
 Feature feature_extract(Image image){
   cerr << " has area " << area(image) << " and perimeter " << perimeter(image) << endl;
   Feature feature = arma::rowvec(1);
+  feature(0)= ((double) perimeter(image)*perimeter(image))/((double) area(image));
   return feature;
 }
