@@ -4,8 +4,9 @@
 #include "ProjetImage.hpp"
 
 
-int area(Image & img);
 
-int perimeter(Image & img);
+int area(Image& img);
+
+int perimeter(Image& img);
 
 #endif

@@ -1,7 +1,7 @@
 #include "ProjetImage.hpp"
 
 /* Ne marche pas */
-int area(Image & img){
+int area(Image& img){
   int count = 0;
   for (auto const &it : img.domain()){
     if (img(it) > 0){
@@ -11,4 +11,4 @@ int area(Image & img){
   return count;
 }
 
-int perimeter(Image & img);
+int perimeter(Image& img);
