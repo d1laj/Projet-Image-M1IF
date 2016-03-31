@@ -9,4 +9,7 @@ int area(Image& img);
 
 int perimeter(Image& img);
 
+int compo_connexes(Image& img);
+
+
 #endif
