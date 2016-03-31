@@ -24,8 +24,15 @@ int main(int argc, char** argv){
   //Matrix testMat = create_features(argv[2], classes);
 
   /* Learning */
+  LinearRegression lr(trainMat,trainAnswers);
+  arma::vec parameters = lr.Parameters();
 
+  arma::vec predictions;
+  lr.Predict(trainMat,predictions);
 
+  for (int i = 0; i < predictions.size(); i++){
+    cerr << "resultat attendu :" << trainAnswers[i] << " resultat obtenu" << predictions[i] << endl;
+  }
 }
 
 void get_classes(char* filename, map<string, int> & classes){
@@ -125,5 +132,6 @@ Feature feature_extract(Image image){
   cerr << area(image) << endl;
   Feature feature = arma::rowvec(1);
   /* cerr << "\tcompo connexes : " << compo_connexes(image) << endl; */
+  feature(0)= ((double) perimeter(image)*perimeter(image))/((double) area(image));
   return feature;
 }
