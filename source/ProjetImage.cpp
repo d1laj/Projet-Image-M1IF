@@ -1,5 +1,5 @@
 #include "ProjetImage.hpp"
-
+#include "Functions.hpp"
 using namespace std;
 
 int main(int argc, char** argv){
