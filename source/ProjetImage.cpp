@@ -49,7 +49,6 @@ void get_classes(char* filename, map<string, int> & classes){
 
   fprintf(stderr, "Classes :\n");
   for(auto const &it : classes) {
-    cerr << "classe: " << it.first << " | ind: " << it.second << "\n";
   }
 
 }

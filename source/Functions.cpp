@@ -1,9 +1,10 @@
 #include "Functions.hpp"
 
 /* Ne marche pas */
-int area(Image & img){
+int area(Image& img){
   int count = 0;
-  for (Image::ConstIterator it = img.begin(); it < img.end(); ++it){
+  Image::ConstIterator it;	
+  for (it = img.begin(); it < img.end(); ++it){
     if (img(*it) > 0){
       count++;
     }
@@ -11,4 +12,4 @@ int area(Image & img){
   return count;
 }
 
-int perimeter(Image & img);
+int perimeter(Image& img);
