@@ -1,4 +1,4 @@
-#include "ProjetImage.hpp"
+#include "Functions.hpp"
 
 /* Ne marche pas */
 int area(Image & img){

@@ -1,6 +1,11 @@
+#ifndef FUNCTIONS_HEADER
+#define FUNCTIONS_HEADER
+
 #include "ProjetImage.hpp"
 
-/* Ne marche pas */
-int area(Image & img){ };
 
-int perimeter(Image & img);
+int area(Image img){ };
+
+int perimeter(Image img);
+
+#endif
