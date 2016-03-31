@@ -19,20 +19,16 @@ FIND_PACKAGE(DGtal REQUIRED)
 INCLUDE_DIRECTORIES(${DGTAL_INCLUDE_DIRS})
 LINK_DIRECTORIES(${DGTAL_LIBRARY_DIRS})
 
+file(GLOB SOURCES "*.cpp")
+
 SET(SRCs
   ProjetImage)
 
 
-IF ((WITH_QGLVIEWER) OR (WITH_VISU3D_QGLVIEWER))
-  SET(SRCs
-    image2mesh  ${SRCs})
-  MESSAGE(STATUS "Viewer3D enabled")
-ELSE()
-  MESSAGE(STATUS "WITH_QGLVIEWER missing when building DGtal. I cannot construct image2mesh")
-ENDIF()
+#FOREACH(FILE ${SRCs})
+##  add_executable(${FILE} ${FILE} ${SOURCES})
+#  target_link_libraries (${FILE} ${DGTAL_LIBRARIES}  ${Boost_LIBRAIRIES}  ${Boost_PROGRAM_OPTIONS_LIBRARY})
+#ENDFOREACH(FILE)
 
-
-FOREACH(FILE ${SRCs})
-  add_executable(${FILE} ${FILE})
-  target_link_libraries (${FILE} ${DGTAL_LIBRARIES}  ${Boost_LIBRAIRIES}  ${Boost_PROGRAM_OPTIONS_LIBRARY})
-ENDFOREACH(FILE)
+add_executable(projet_image ${SOURCES})
+target_link_libraries (projet_image ${DGTAL_LIBRARIES}  ${Boost_LIBRAIRIES}  ${Boost_PROGRAM_OPTIONS_LIBRARY})
