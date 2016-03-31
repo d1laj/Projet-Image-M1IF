@@ -23,8 +23,6 @@
 #include "DGtal/images/imagesSetsUtils/SetFromImage.h"
 #include "DGtal/images/ImageContainerBySTLVector.h"
 /* Librairies linked to data learning */
-//#include <armadillo>
-/*Mlpack */
 #include <mlpack/core.hpp>
 #include <mlpack/methods/linear_regression/linear_regression.hpp>
 
@@ -38,7 +36,7 @@ void get_classes(char* filename, map<string, int> & classes);
 
 typedef ImageContainerBySTLVector< Domain, unsigned int> Image;
 typedef arma::mat Matrix;
-typedef arma::rowvec Feature;
+typedef arma::colvec Feature;
 typedef map<string ,int> Classes;
 
 Feature feature_extract(Image img);

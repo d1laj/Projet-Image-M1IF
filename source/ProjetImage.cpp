@@ -2,6 +2,7 @@
 #include "Functions.hpp"
 using namespace std;
 
+
 int main(int argc, char** argv){
   if (argc != 4){
     fprintf(stderr, "Usage: ./ProjetImage directoryNameTrainSet directoryNameTestSet classes.csv\n");
@@ -20,18 +21,25 @@ int main(int argc, char** argv){
   Matrix trainMat;
   arma::vec trainAnswers;
   trainMat = create_features(argv[1], trainAnswers, classes);
-
+  cerr << "Dim : rows = " << trainMat.n_rows << " cols = " << trainMat.n_cols << endl;
+  cerr << "Dim : rows = " << trainAnswers.n_rows << " cols = " << trainAnswers.n_cols << endl;
   //Matrix testMat = create_features(argv[2], classes);
 
   /* Learning */
   LinearRegression lr(trainMat,trainAnswers);
+  cerr << "prout" << endl;
   arma::vec parameters = lr.Parameters();
+  cerr << "prout" << endl;
 
-  arma::vec predictions;
+  arma::vec predictions(180);;
   lr.Predict(trainMat,predictions);
 
   for (int i = 0; i < predictions.size(); i++){
     cerr << "resultat attendu :" << trainAnswers[i] << " resultat obtenu" << predictions[i] << endl;
+  }
+
+  for (int i = 0; i < predictions.size(); i++){
+    cerr << "resultat attendu :" << trainAnswers[i] << " valeur : " << trainMat[0,i] << endl;
   }
 }
 
@@ -82,22 +90,24 @@ Matrix create_features(string directory, arma::vec & vect, Classes & classes){
 
   while ((dirp = readdir( dp ))) {
     filepath = directory + "/" + dirp->d_name;
+    string filename = dirp->d_name;
 
     // If the file is a directory (or is in some way invalid) we'll skip it
     if (stat( filepath.c_str(), &filestat )) continue;
     if (S_ISDIR( filestat.st_mode ))         continue;
 
     // We check if the file is correct
-    size_t pos = filepath.find_last_of(".");
-    string ext = filepath.substr(pos);
+    size_t pos = filename.find_last_of(".");
+    string ext = filename.substr(pos);
     // Test if the string is a pgm file.
 
     if (ext.compare(".pgm"))  continue;
 
     cerr << "\tChecking pgm file: " << filepath << endl;
-    pos = filepath.find_last_of("-");
-    string cla = filepath.substr(0, pos - 1);
+    pos = filename.find_last_of("-");
+    string cla = filename.substr(0, pos);
     // We add a row to the answer vector
+    cerr << "\tma classe : \"" << cla << "\"" << endl;
     vect.insert_rows(vect.n_rows, 1);
     // We test if the file name infer it's class.
     // This is used to identify the classes in the train set.
@@ -113,9 +123,9 @@ Matrix create_features(string directory, arma::vec & vect, Classes & classes){
     Image image = PGMReader<Image>::importPGM(filepath);
     // We extract the features
     cerr << filepath << " has area "; // TODO
-    Feature row= feature_extract(image);
+    Feature col= feature_extract(image);
     // we add the features to the matrix
-    matrix.insert_rows(matrix.n_rows, row);
+    matrix.insert_cols(matrix.n_cols, col);
   }
 
   closedir( dp );
@@ -130,7 +140,7 @@ Matrix create_features(string directory, Classes & classes){
 
 Feature feature_extract(Image image){
   cerr << area(image) << endl;
-  Feature feature = arma::rowvec(1);
+  Feature feature = arma::colvec(1);
   /* cerr << "\tcompo connexes : " << compo_connexes(image) << endl; */
   feature(0)= ((double) perimeter(image)*perimeter(image))/((double) area(image));
   return feature;
