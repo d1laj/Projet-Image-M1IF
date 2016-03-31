@@ -29,6 +29,10 @@ int main(int argc, char** argv){
 
   arma::vec predictions;
   lr.Predict(trainMat,predictions);
+
+  for (int i = 0; i < predictions.size(); i++){
+    cerr << "resultat attendu :" << trainAnswers[i] << " resultat obtenu" << predictions[i] << endl;
+  }
 }
 
 void get_classes(char* filename, map<string, int> & classes){
