@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <queue>
 #include <string>
 #include <fstream>
 #include <dirent.h>
@@ -23,13 +24,11 @@
 #include "DGtal/images/imagesSetsUtils/SetFromImage.h"
 #include "DGtal/images/ImageContainerBySTLVector.h"
 /* Librairies linked to data learning */
-#include <mlpack/core.hpp>
-#include <mlpack/methods/linear_regression/linear_regression.hpp>
+#include <armadillo>
 
 using namespace std;
 using namespace DGtal;
 using namespace DGtal::Z2i;
-using namespace mlpack::regression;
 
 /* Look at the classes.csv file and store the classes with an index for each of them*/
 void get_classes(char* filename, map<string, int> & classes);

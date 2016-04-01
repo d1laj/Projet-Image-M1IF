@@ -4,11 +4,7 @@ Getting libraries:
 apt-get install libarmadillo-dev
 
 ###############
-Install mlpack:
+Install scikit learn:
 ###############:
-git clone https://github.com/mlpack/mlpack.git
-cd mlpack
-mkdir build
-cd build
-cmake ..
-make install
+Le plus simple:
+Télécharger + installer anaconda

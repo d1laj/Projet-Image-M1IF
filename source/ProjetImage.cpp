@@ -25,7 +25,20 @@ int main(int argc, char** argv){
   cerr << "Dim : rows = " << trainAnswers.n_rows << " cols = " << trainAnswers.n_cols << endl;
   //Matrix testMat = create_features(argv[2], classes);
 
+  ofstream myfile;
+  myfile.open("answers.csv");
+  for (int i=0; i < trainAnswers.size(); i++){
+    myfile << trainAnswers(i) << "\n";
+  }
+  myfile.close();
+
+  myfile.open("train.csv");
+  for (int i=0; i < trainAnswers.size(); i++){
+    myfile << trainMat(0, i) << ", " << trainMat(1, i) << ", " << trainMat(2, i) << "\n";
+  }
+  myfile.close();
   /* Learning */
+  /*
   LinearRegression lr(trainMat,trainAnswers);
   cerr << "prout" << endl;
   arma::vec parameters = lr.Parameters();
@@ -41,6 +54,8 @@ int main(int argc, char** argv){
   for (int i = 0; i < predictions.size(); i++){
     cerr << "resultat attendu :" << trainAnswers[i] << " valeur : " << trainMat[0,i] << endl;
   }
+  */
+
 }
 
 void get_classes(char* filename, map<string, int> & classes){
@@ -62,14 +77,11 @@ void get_classes(char* filename, map<string, int> & classes){
     }
   }
 
-  fprintf(stderr, "Classes :\n");
-  for(auto const &it : classes) {
-  }
+  //fprintf(stderr, "Classes :\n");
 
 }
 
 Matrix create_features(string directory, arma::vec & vect, Classes & classes){
-  ifstream fin;
   string filepath;
   DIR *dp;
   struct dirent *dirp;
@@ -88,6 +100,7 @@ Matrix create_features(string directory, arma::vec & vect, Classes & classes){
   cerr << "\tDirectory opened" << endl;
   Matrix matrix= arma::mat();
 
+  int counter = 0;
   while ((dirp = readdir( dp ))) {
     filepath = directory + "/" + dirp->d_name;
     string filename = dirp->d_name;
@@ -103,7 +116,8 @@ Matrix create_features(string directory, arma::vec & vect, Classes & classes){
 
     if (ext.compare(".pgm"))  continue;
 
-    cerr << "\tChecking pgm file: " << filepath << endl;
+    counter++;
+    cerr << "\tChecking pgm file: " << filepath << "[" << counter << "/1050]"<< endl;
     pos = filename.find_last_of("-");
     string cla = filename.substr(0, pos);
     // We add a row to the answer vector
@@ -122,7 +136,7 @@ Matrix create_features(string directory, arma::vec & vect, Classes & classes){
     // Then we get the image
     Image image = PGMReader<Image>::importPGM(filepath);
     // We extract the features
-    cerr << filepath << " has area "; // TODO
+    //cerr << filepath << " has area "; // TODO
     Feature col= feature_extract(image);
     // we add the features to the matrix
     matrix.insert_cols(matrix.n_cols, col);
@@ -139,9 +153,11 @@ Matrix create_features(string directory, Classes & classes){
 }
 
 Feature feature_extract(Image image){
-  cerr << area(image) << endl;
-  Feature feature = arma::colvec(1);
-  /* cerr << "\tcompo connexes : " << compo_connexes(image) << endl; */
+  //cerr << area(image) << endl;
+  Feature feature = arma::colvec(3);
+  //cerr << "\tcompo connexes : " << compo_connexes(image) << endl;
   feature(0)= ((double) perimeter(image)*perimeter(image))/((double) area(image));
+  feature(1) = compo_connexes(image, 0);
+  feature(2) = compo_connexes(image, 1);
   return feature;
 }
