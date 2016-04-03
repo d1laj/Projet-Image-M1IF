@@ -154,10 +154,12 @@ Matrix create_features(string directory, Classes & classes){
 
 Feature feature_extract(Image image){
   //cerr << area(image) << endl;
-  Feature feature = arma::colvec(3);
+  Feature feature = arma::colvec(4);
   //cerr << "\tcompo connexes : " << compo_connexes(image) << endl;
   feature(0)= ((double) perimeter(image)*perimeter(image))/((double) area(image));
-  feature(1) = compo_connexes(image, 0);
-  feature(2) = compo_connexes(image, 1);
+  feature(1) = compo_connexes(image, 0, 10);
+  feature(2) = compo_connexes(image, 255, 10);
+  feature(3) = holes(image, 10);
+  cerr << "compo 0 : " << feature(1) << " compo 1 : " << feature(2) << " holes : " << feature(3) << endl;
   return feature;
 }
