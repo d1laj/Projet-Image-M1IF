@@ -4,8 +4,7 @@ import sklearn
 from sklearn.svm import SVC
 from numpy import genfromtxt
 import numpy as np
-my_data = genfromtxt('classes.csv', delimiter=',', dtype=type(""))
-print(my_data)
+classes = genfromtxt('classes.csv', delimiter=',', dtype=type(""))
 
 ans = genfromtxt('../source/build/answers.csv', delimiter=',', dtype=type(1))
 print(ans)
@@ -27,4 +26,7 @@ print(score)
 y_result = clf.predict(X_test)
 
 for i in range(y_test.size):
-    print(y_result[i] == y_test[i], y_test[i], y_result[i])
+    if y_result[i] == y_test[i]:
+        print(y_result[i] == y_test[i], y_test[i], y_result[i], classes[y_result[i]-1])
+    else:
+        print(y_result[i] == y_test[i], y_test[i], y_result[i], "\t\t", classes[y_test[i]-1], " vs ",classes[y_result[i]-1])
