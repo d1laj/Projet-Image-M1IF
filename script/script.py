@@ -10,6 +10,7 @@ ans = genfromtxt('../source/build/answers.csv', delimiter=',', dtype=type(1))
 print(ans)
 
 my_data = genfromtxt('../source/build/train.csv', delimiter=',', dtype=type(1.))
+#my_data = my_data[:, [0, 2, 3]]
 #my_data = my_data[:, np.newaxis]
 print(my_data)
 
@@ -24,9 +25,14 @@ score = clf.score(X_test, y_test)
 print(score)
 
 y_result = clf.predict(X_test)
-
+"""
 for i in range(y_test.size):
     if y_result[i] == y_test[i]:
-        print(y_result[i] == y_test[i], y_test[i], y_result[i], classes[y_result[i]-1])
+        print(y_result[i] == y_test[i], y_test[i], y_result[i], classes[y_result[i] - 1])
     else:
-        print(y_result[i] == y_test[i], y_test[i], y_result[i], "\t\t", classes[y_test[i]-1], " vs ",classes[y_result[i]-1])
+        print(y_result[i] == y_test[i], y_test[i], y_result[i], "\t\t", classes[y_test[i] - 1], " vs ", classes[y_result[i] - 1])
+"""
+# ratio perimètre aire = 0.119047619048
+# + comp conexexes = 0.119047619048 -> pas de gain
+# + holes = 0.130952380952
+# + PCA = 0.17619047619 -> moins si on enlève composantes connexes 0.17619047619

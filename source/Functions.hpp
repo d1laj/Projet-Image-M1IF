@@ -13,4 +13,6 @@ int compo_connexes(Image& img, int val, int min_item);
 
 int holes(Image& img, int min_item);
 
+double ratio_longueur_largeur(Image & img);
+
 #endif
