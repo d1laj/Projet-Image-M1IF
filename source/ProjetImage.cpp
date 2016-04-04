@@ -34,28 +34,9 @@ int main(int argc, char** argv){
 
   myfile.open("train.csv");
   for (int i=0; i < trainAnswers.size(); i++){
-    myfile << trainMat(0, i) << ", " << trainMat(1, i) << ", " << trainMat(2, i) << "\n";
+    myfile << trainMat(0, i) << ", " << trainMat(1, i) << ", " << trainMat(2, i) << ", " << trainMat(3, i) << "\n";
   }
   myfile.close();
-  /* Learning */
-  /*
-  LinearRegression lr(trainMat,trainAnswers);
-  cerr << "prout" << endl;
-  arma::vec parameters = lr.Parameters();
-  cerr << "prout" << endl;
-
-  arma::vec predictions(180);;
-  lr.Predict(trainMat,predictions);
-
-  for (int i = 0; i < predictions.size(); i++){
-    cerr << "resultat attendu :" << trainAnswers[i] << " resultat obtenu" << predictions[i] << endl;
-  }
-
-  for (int i = 0; i < predictions.size(); i++){
-    cerr << "resultat attendu :" << trainAnswers[i] << " valeur : " << trainMat[0,i] << endl;
-  }
-  */
-
 }
 
 void get_classes(char* filename, map<string, int> & classes){
