@@ -38,8 +38,11 @@ print(score)
 Ans = clf.predict_proba(X_test)
 count1 = 0
 count2 = 0
+tab = [[] for i in range(70)]
+
 for i in range(y_test.size):
     print("Classe : ", classes[y_test[i] - 1], " | probaility : ", Ans[i][y_test[i] - 1], " | rank : ", rank(y_test[i] - 1, Ans[i]))
+    tab[y_test[i] - 1] = rank(y_test[i] - 1, Ans[i])
     if rank(y_test[i] - 1, Ans[i]) <= 10:
         count1 += 1
     if rank(y_test[i] - 1, Ans[i]) <= 2:
@@ -47,6 +50,9 @@ for i in range(y_test.size):
 print("# test rank <= 10 ", count1, count1 / y_test.size)
 print("# test rank <= 2 ", count2, count2 / y_test.size)
 print("# test ", y_test.size)
+
+for i in range(70):
+    print(classes[i], tab[i])
 #y_result = clf.predict(X_test)
 """
 for i in range(y_test.size):
