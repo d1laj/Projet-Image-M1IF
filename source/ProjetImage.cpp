@@ -19,9 +19,13 @@ int main(int argc, char** argv){
 
     cerr << "Training started" << endl;
     Matrix trainMat;
+    Matrix testMat;
     arma::vec trainAnswers;
+    arma::vec testAnswers;
     trainMat = create_features(argv[1], trainAnswers, classes);
+    testMat = create_features(argv[2], testAnswers, classes);
     cerr << "Dim : rows = " << trainMat.n_rows << " cols = " << trainMat.n_cols << endl;
+    cerr << "Dim : rows = " << testMat.n_rows << " cols = " << testMat.n_cols << endl;
     cerr << "Dim : rows = " << trainAnswers.n_rows << " cols = " << trainAnswers.n_cols << endl;
     //Matrix testMat = create_features(argv[2], classes);
 
@@ -32,11 +36,31 @@ int main(int argc, char** argv){
     }
     myfile.close();
 
+    myfile.open("answers_test.csv");
+    for (uint i=0; i < testAnswers.size(); i++){
+        myfile << testAnswers(i) << "\n";
+    }
+    myfile.close();
+
     myfile.open("train.csv");
     for (uint i=0; i < trainAnswers.size(); i++){
         for (uint j=0; j < trainMat.n_rows; j++){
             myfile << trainMat(j, i);
             if (j == trainMat.n_rows - 1){
+                myfile << "\n";
+            }
+            else{
+                myfile << ",";
+            }
+        }
+    }
+    myfile.close();
+
+    myfile.open("test.csv");
+    for (uint i=0; i < testMat.n_cols; i++){
+        for (uint j=0; j < testMat.n_rows; j++){
+            myfile << testMat(j, i);
+            if (j == testMat.n_rows - 1){
                 myfile << "\n";
             }
             else{
@@ -92,6 +116,7 @@ Matrix create_features(string directory, arma::vec & vect, Classes & classes){
     int counter = 0;
     while ((dirp = readdir( dp ))) {
         filepath = directory + "/" + dirp->d_name;
+        cerr << filepath << endl;
         string filename = dirp->d_name;
 
         // If the file is a directory (or is in some way invalid) we'll skip it
@@ -100,6 +125,8 @@ Matrix create_features(string directory, arma::vec & vect, Classes & classes){
 
         // We check if the file is correct
         size_t pos = filename.find_last_of(".");
+        if (pos > filename.size()) continue;
+
         string ext = filename.substr(pos);
         // Test if the string is a pgm file.
 

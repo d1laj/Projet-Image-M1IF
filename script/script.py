@@ -13,35 +13,35 @@ from collections import OrderedDict
 
 
 def rank(idx, tab):
-    rk = 1
+    rk = 0
     for i in tab:
-        if i > tab[idx]:
+        if i >= tab[idx]:
             rk += 1
     return rk
 
 classes = genfromtxt('classes.csv', delimiter=',', dtype=type(""))
 
-ans = genfromtxt('../source/build/answers.csv', delimiter=',', dtype=type(1))
-print(ans)
+y_test = genfromtxt('../source/build/answers_test.csv', delimiter=',', dtype=type(1))
+y_train = genfromtxt('../source/build/answers.csv', delimiter=',', dtype=type(1))
+#print(ans)
 
-my_data = genfromtxt('../source/build/train.csv', delimiter=',', dtype=type(1.))
+X_train = genfromtxt('../source/build/train.csv', delimiter=',', dtype=type(1.))
+X_test = genfromtxt('../source/build/test.csv', delimiter=',', dtype=type(1.))
 #my_data = my_data[:, [0, 2, 3]]
 #my_data = my_data[:, np.newaxis]
-print(my_data)
+# print(my_data)
 
-clf = SVC(kernel='rbf', gamma=2, C=1, probability=True)
-clf = LogisticRegression()
-models = [('Knn 5', KNeighborsClassifier(5)),
+models = [('Knn 5', KNeighborsClassifier(10)),
           ('Naive Bayes', GaussianNB()),
           ('Logistic Regression', LogisticRegression()),
-          ('Linear SVM', SVC(kernel='linear', probability=True)),
+          # ('Linear SVM', SVC(kernel='linear', probability=True)),
           # ('Poly SVM', SVC(kernel='poly', degree=2, probability=True)),
           ('RBF SVM', SVC(kernel='rbf', gamma=2, C=1, probability=True)),
           ('Classification Tree', DecisionTreeClassifier(max_depth=5)),
           ('Random Forest', RandomForestClassifier(max_depth=5, n_estimators=50))]
 
-from sklearn.cross_validation import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(my_data, ans, test_size=.4, random_state=42)
+# from sklearn.cross_validation import train_test_split
+# X_train, X_test, y_train, y_test = train_test_split(my_data, ans, test_size=.4, random_state=42)
 
 for model in models:
     print("\n\n######################\n", model[0], "\n######################\n")
