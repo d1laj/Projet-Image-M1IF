@@ -171,6 +171,7 @@ Matrix create_features(string directory, Classes & classes){
 Feature feature_extract(Image image){
     //cerr << area(image) << endl;
     Feature feature = arma::colvec(4);
+    preprossesing(image);
     //cerr << "\tcompo connexes : " << compo_connexes(image) << endl;
     feature(0)= ((double) perimeter(image)*perimeter(image))/((double) area(image));
     feature(1) = compo_connexes(image, 255, 10);

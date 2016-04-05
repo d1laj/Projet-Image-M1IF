@@ -15,4 +15,5 @@ int holes(Image& img, int min_item);
 
 double ratio_longueur_largeur(Image & img);
 
+void preprossesing(Image & img);
 #endif

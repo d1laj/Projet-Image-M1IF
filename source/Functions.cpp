@@ -8,6 +8,7 @@ int area(Image& img){
       count++;
     }
   }
+  if (count == 0) return 1;
   return count;
 }
 
@@ -146,6 +147,8 @@ double ratio_longueur_largeur(Image & img){
         }
     }
 
+    if (count == 0) return 0;
+    
     G_x = G_x / count;
     G_y = G_y / count;
 
@@ -169,4 +172,28 @@ double ratio_longueur_largeur(Image & img){
     double ratio = eigval(0) / eigval(1);
 
     return ratio;
+}
+
+void preprossesing(Image & img){
+    Image img_prim = img;
+
+    for (auto const &it : img.domain()){
+        int count_0 = 0;
+        int count_1 = 0;
+        for (int i= -1; i <= 1; i++){
+            for (int j= -1; j <= 1; j++){
+                Point v = Point(it[0] + i, it[1] + j);
+                if (img.domain().isInside(v)){
+                    if (img_prim(v) > 0)  count_1++;
+                    if (img_prim(v) == 0) count_0++;
+                }
+            }
+        }
+        if (count_0 > count_1){
+            img.setValue(it, 0);
+        }
+        else{
+            img.setValue(it, 255);
+        }
+    }
 }
