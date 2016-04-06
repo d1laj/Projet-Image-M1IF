@@ -42,7 +42,6 @@ Feature feature_extract(Image img);
 
 /* Create a feature matrix corrresponding to the files.*/
 Matrix create_features(string directory, arma::vec & vect, Classes & classes); // Train set
-Matrix create_features(string directory, Classes & classes); // Test Set
 
 /* Features
   _ ration aire/perimetre
